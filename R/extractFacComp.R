@@ -1,5 +1,6 @@
 #' EFA.Comp.Data
-#' #' 
+#' 
+#' @aliases EFA.Comp.Data
 #' @param Data N (sample size) x k (number of variables) data matrix
 #' @param F.Max largest number of factors to consider
 #' @param N.Pop size of finite populations of comparison data (default = 10,000 cases) 
@@ -14,9 +15,7 @@
 #' 
 #' @export EFA.Comp.Data
 #' @examples
-#' \dontrun{
 #' ?Sample.Commands
-#' Sample.Commands()
 
 
 ################################################################################################################ 

@@ -2,8 +2,8 @@
 % Please edit documentation in R/extractFacComp.R
 \name{Sample.Commands}
 \alias{Sample.Commands}
-\title{EFA.Comp.Data
-#'}
+\alias{EFA.Comp.Data}
+\title{EFA.Comp.Data}
 \usage{
 Sample.Commands()
 }
@@ -24,7 +24,9 @@ Sample.Commands()
 }
 \description{
 EFA.Comp.Data
-#'
+}
+\examples{
+?Sample.Commands
 }
 \references{
 Ruscio, John; Roche, B. (2012). 'Determining the number of factors to retain in an exploratory factor analysis using comparison data of known factorial structure'. Psychological Assessment 24: 282–292.
