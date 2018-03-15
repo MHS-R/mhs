@@ -1,71 +1,3 @@
-#' Sample.Commands
-#'
-#'This program shows how to use the main program with two illustrative samples of
-#'data.  The first sample contains N = 500 cases, k = 12 normally distributed
-#'continuous variables, and 3 correlated factors.  The sample commands show the
-#'correlation matrix and the output of the EFA.Comp.Data program, which correctly
-#'identifies 3 factors.  The second sample contains N = 500 cases, k = 8 non-normally
-#'distributed ordinal variables, and 2 uncorrelated factors.  The sample commands show
-#'the Pearson correlation matrix, the Spearman correlation matrix, the difference
-#'between these matrices, the output of the EFA.Comp.Data program (first using Pearson
-#'correlations and then using Spearman correlations).  The first run overidentifies
-#'the number of factors, but the second correctly identifies 2 factors.
-#'
-
-#' @aliases Sample.Commands
-#' @references
-#' Ruscio, John; Roche, B. (2012). 'Determining the number of factors to retain in an exploratory factor analysis using comparison data of known factorial structure'. Psychological Assessment 24: 282–292.
-# \doi{10.1037/a0025697}
-#'
-#'
-#' @export Sample.Commands
-#' @examples
-#' ?Sample.Commands
-
-################################################################################################################
-Sample.Commands <- function() {
-    set.seed(1)
-    s1 <- rnorm(500)
-    s2 <- rnorm(500)
-    s3 <- rnorm(500)
-    x1 <- s1 + s2 + rnorm(500)
-    x2 <- s1 + s2 + rnorm(500)
-    x3 <- s1 + s2 + rnorm(500)
-    x4 <- s1 + s2 + rnorm(500)
-    x5 <- s1 + s3 + rnorm(500)
-    x6 <- s1 + s3 + rnorm(500)
-    x7 <- s1 + s3 + rnorm(500)
-    x8 <- s1 + s3 + rnorm(500)
-    x9 <- s2 + s3 + rnorm(500)
-    x10 <- s2 + s3 + rnorm(500)
-    x11 <- s2 + s3 + rnorm(500)
-    x12 <- s2 + s3 + rnorm(500)
-    x <- cbind(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12)
-    print(round(cor(x), 2))
-    EFA.Comp.Data(Data = x, F.Max = 5, Graph = T)
-
-    s1 <- runif(500)
-    s2 <- runif(500)
-    x1 <- cut(((s1 + 0.5 * runif(500))/1.5)^0.5, breaks = 5)
-    x2 <- cut(((s1 + 0.5 * runif(500))/1.5)^0.5, breaks = 5)
-    x3 <- cut(((s1 + 0.5 * runif(500))/1.5)^2, breaks = 5)
-    x4 <- cut(((s1 + 0.5 * runif(500))/1.5)^2, breaks = 5)
-    x5 <- cut(((s2 + 0.5 * runif(500))/1.5)^0.5, breaks = 5)
-    x6 <- cut(((s2 + 0.5 * runif(500))/1.5)^0.5, breaks = 5)
-    x7 <- cut(((s2 + 0.5 * runif(500))/1.5)^2, breaks = 5)
-    x8 <- cut(((s2 + 0.5 * runif(500))/1.5)^2, breaks = 5)
-    x <- cbind(x1, x2, x3, x4, x5, x6, x7, x8)
-    print(round(cor(x), 2))
-    print(round(cor(x), 2), method = "spearman")
-    print(round(cor(x) - cor(x, method = "spearman"), 2))
-    win.graph()
-    EFA.Comp.Data(Data = x, F.Max = 5, Graph = T)
-    win.graph()
-    EFA.Comp.Data(Data = x, F.Max = 5, Graph = T, Spearman = T)
-}
-
-
-################################################################################################################
 #' EFA.Comp.Data
 #'
 #' @aliases EFA.Comp.Data
@@ -123,7 +55,70 @@ EFA.Comp.Data <- function(Data, F.Max, N.Pop = 10000, N.Samples = 500, Alpha = 0
 }
 
 
-################################################################################################################
+#' Sample.Commands
+#'This program shows how to use the main program with two illustrative samples of
+#'data.  The first sample contains N = 500 cases, k = 12 normally distributed
+#'continuous variables, and 3 correlated factors.  The sample commands show the
+#'correlation matrix and the output of the EFA.Comp.Data program, which correctly
+#'identifies 3 factors.  The second sample contains N = 500 cases, k = 8 non-normally
+#'distributed ordinal variables, and 2 uncorrelated factors.  The sample commands show
+#'the Pearson correlation matrix, the Spearman correlation matrix, the difference
+#'between these matrices, the output of the EFA.Comp.Data program (first using Pearson
+#'correlations and then using Spearman correlations).  The first run overidentifies
+#'the number of factors, but the second correctly identifies 2 factors.
+#'
+#' @aliases Sample.Commands
+#' @references
+#' Ruscio, John; Roche, B. (2012). 'Determining the number of factors to retain in an exploratory factor analysis using comparison data of known factorial structure'. Psychological Assessment 24: 282–292.
+# \doi{10.1037/a0025697}
+#'
+#'
+#' @export Sample.Commands
+#' @examples
+#' ?Sample.Commands
+
+Sample.Commands <- function() {
+    set.seed(1)
+    s1 <- rnorm(500)
+    s2 <- rnorm(500)
+    s3 <- rnorm(500)
+    x1 <- s1 + s2 + rnorm(500)
+    x2 <- s1 + s2 + rnorm(500)
+    x3 <- s1 + s2 + rnorm(500)
+    x4 <- s1 + s2 + rnorm(500)
+    x5 <- s1 + s3 + rnorm(500)
+    x6 <- s1 + s3 + rnorm(500)
+    x7 <- s1 + s3 + rnorm(500)
+    x8 <- s1 + s3 + rnorm(500)
+    x9 <- s2 + s3 + rnorm(500)
+    x10 <- s2 + s3 + rnorm(500)
+    x11 <- s2 + s3 + rnorm(500)
+    x12 <- s2 + s3 + rnorm(500)
+    x <- cbind(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12)
+    print(round(cor(x), 2))
+    EFA.Comp.Data(Data = x, F.Max = 5, Graph = T)
+
+    s1 <- runif(500)
+    s2 <- runif(500)
+    x1 <- cut(((s1 + 0.5 * runif(500))/1.5)^0.5, breaks = 5)
+    x2 <- cut(((s1 + 0.5 * runif(500))/1.5)^0.5, breaks = 5)
+    x3 <- cut(((s1 + 0.5 * runif(500))/1.5)^2, breaks = 5)
+    x4 <- cut(((s1 + 0.5 * runif(500))/1.5)^2, breaks = 5)
+    x5 <- cut(((s2 + 0.5 * runif(500))/1.5)^0.5, breaks = 5)
+    x6 <- cut(((s2 + 0.5 * runif(500))/1.5)^0.5, breaks = 5)
+    x7 <- cut(((s2 + 0.5 * runif(500))/1.5)^2, breaks = 5)
+    x8 <- cut(((s2 + 0.5 * runif(500))/1.5)^2, breaks = 5)
+    x <- cbind(x1, x2, x3, x4, x5, x6, x7, x8)
+    print(round(cor(x), 2))
+    print(round(cor(x), 2), method = "spearman")
+    print(round(cor(x) - cor(x, method = "spearman"), 2))
+    win.graph()
+    EFA.Comp.Data(Data = x, F.Max = 5, Graph = T)
+    win.graph()
+    EFA.Comp.Data(Data = x, F.Max = 5, Graph = T, Spearman = T)
+}
+
+
 GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, Initial.Multiplier = 1,
     Cor.Type) {
     # Steps refer to description in the following article: Ruscio, J., & Kaczetow, W.
@@ -160,8 +155,8 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, Initial.Multipl
     Shared.Load <- matrix(0, nrow = k, ncol = N.Factors)
     Unique.Load <- matrix(0, nrow = k, ncol = 1)
 
-    # Begin loop that ends when specified number of iterations pass without improvement in
-    # RMSR correlation --------
+    # Begin loop that ends when specified number of iterations pass without improvement
+    # in RMSR correlation --------
 
     while (Trials.Without.Improvement < Max.Trials) {
         Iteration <- Iteration + 1
@@ -240,7 +235,8 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, Initial.Multipl
 }
 
 ################################################################################################################
-Factor.Analysis <- function(Data, Corr.Matrix = FALSE, Max.Iter = 50, N.Factors = 0, Cor.Type) {
+Factor.Analysis <- function(Data, Corr.Matrix = FALSE, Max.Iter = 50, N.Factors = 0,
+    Cor.Type) {
     Data <- as.matrix(Data)
     k <- dim(Data)[2]
     if (N.Factors == 0) {

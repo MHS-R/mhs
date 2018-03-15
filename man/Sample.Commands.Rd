@@ -2,28 +2,32 @@
 % Please edit documentation in R/extractFacComp.R
 \name{Sample.Commands}
 \alias{Sample.Commands}
-\alias{EFA.Comp.Data}
-\title{EFA.Comp.Data}
+\title{Sample.Commands
+This program shows how to use the main program with two illustrative samples of
+data.  The first sample contains N = 500 cases, k = 12 normally distributed
+continuous variables, and 3 correlated factors.  The sample commands show the
+correlation matrix and the output of the EFA.Comp.Data program, which correctly
+identifies 3 factors.  The second sample contains N = 500 cases, k = 8 non-normally
+distributed ordinal variables, and 2 uncorrelated factors.  The sample commands show
+the Pearson correlation matrix, the Spearman correlation matrix, the difference
+between these matrices, the output of the EFA.Comp.Data program (first using Pearson
+correlations and then using Spearman correlations).  The first run overidentifies
+the number of factors, but the second correctly identifies 2 factors.}
 \usage{
 Sample.Commands()
 }
-\arguments{
-\item{Data}{N (sample size) x k (number of variables) data matrix}
-
-\item{F.Max}{largest number of factors to consider}
-
-\item{N.Pop}{size of finite populations of comparison data (default = 10,000 cases)}
-
-\item{N.Samples}{number of samples drawn from each population (default = 500)}
-
-\item{Alpha}{alpha level when testing statistical significance of improvement with add'l factor (default = .30)}
-
-\item{Graph}{whether to plot the fit of eigenvalues to those for comparison data (default = F)}
-
-\item{Spearman}{whether to use Spearman rank-order correlations rather than Pearson correlations (default = F)}
-}
 \description{
-EFA.Comp.Data
+Sample.Commands
+This program shows how to use the main program with two illustrative samples of
+data.  The first sample contains N = 500 cases, k = 12 normally distributed
+continuous variables, and 3 correlated factors.  The sample commands show the
+correlation matrix and the output of the EFA.Comp.Data program, which correctly
+identifies 3 factors.  The second sample contains N = 500 cases, k = 8 non-normally
+distributed ordinal variables, and 2 uncorrelated factors.  The sample commands show
+the Pearson correlation matrix, the Spearman correlation matrix, the difference
+between these matrices, the output of the EFA.Comp.Data program (first using Pearson
+correlations and then using Spearman correlations).  The first run overidentifies
+the number of factors, but the second correctly identifies 2 factors.
 }
 \examples{
 ?Sample.Commands

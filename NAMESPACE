@@ -2,5 +2,6 @@
 
 export(Char2Num)
 export(EFA.Comp.Data)
+export(Sample.Commands)
 export(collate)
 export(round2)
