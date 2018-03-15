@@ -1,16 +1,22 @@
-# Ruscio, John; Roche, B. (2012). 'Determining the number of factors to
-# retain in an exploratory factor analysis using comparison data of known
-# factorial structure'. Psychological Assessment 24: 282–292.
-# doi:10.1037/a0025697
-
-################################################################################################################ To use the program code in this .R file, it should be imported into R
-################################################################################################################ using the 'Source R code' option from the 'File' menu in R.  To run the
-################################################################################################################ main program (EFA.Comp.Data), you need to provide data (arranged as an
-################################################################################################################ N [sample size] x k [number of variables] matrix) and specify the
-################################################################################################################ largest number of factors to consider.  The program may reach a
-################################################################################################################ stopping point before it reaches this largest number of factors.  The
-################################################################################################################ Sample.Commands program provides two illustrations for how to use the
-################################################################################################################ EFA.Comp.Data program.
+#' EFA.Comp.Data
+#' #' 
+#' @param Data N (sample size) x k (number of variables) data matrix
+#' @param F.Max largest number of factors to consider
+#' @param N.Pop size of finite populations of comparison data (default = 10,000 cases) 
+#' @param N.Samples  number of samples drawn from each population (default = 500) 
+#' @param Alpha alpha level when testing statistical significance of improvement with add'l factor (default = .30) 
+#' @param Graph whether to plot the fit of eigenvalues to those for comparison data (default = F)
+#' @param Spearman whether to use Spearman rank-order correlations rather than Pearson correlations (default = F)
+#' @references 
+#' Ruscio, John; Roche, B. (2012). 'Determining the number of factors to retain in an exploratory factor analysis using comparison data of known factorial structure'. Psychological Assessment 24: 282–292.
+# \doi{10.1037/a0025697}
+#' 
+#' 
+#' @export EFA.Comp.Data
+#' @examples
+#' \dontrun{
+#' ?Sample.Commands
+#' Sample.Commands()
 
 
 ################################################################################################################ 
@@ -72,16 +78,6 @@ Sample.Commands <- function() {
 ################################################################################################################ 
 EFA.Comp.Data <- function(Data, F.Max, N.Pop = 10000, N.Samples = 500, Alpha = 0.3, 
     Graph = F, Spearman = F) {
-    # Data = N (sample size) x k (number of variables) data matrix F.Max =
-    # largest number of factors to consider N.Pop = size of finite
-    # populations of comparison data (default = 10,000 cases) N.Samples =
-    # number of samples drawn from each population (default = 500) Alpha =
-    # alpha level when testing statistical significance of improvement with
-    # add'l factor (default = .30) Graph = whether to plot the fit of
-    # eigenvalues to those for comparison data (default = F) Spearman =
-    # whether to use Spearman rank-order correlations rather than Pearson
-    # correlations (default = F)
-    
     N <- dim(Data)[1]
     k <- dim(Data)[2]
     if (Spearman) 
