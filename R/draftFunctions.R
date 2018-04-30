@@ -1,7 +1,8 @@
 #' Create character to numbers
 #'
-#' This function allows you to change character text to numbers
-#' @param
+#' Given a dataframe, this function examines the class of each column; if a column's class is 'character', then it gets converted to a numeric type.
+#' Vic's note: Not sure who wrote or used this function. Gets NAs if column cannot be stored as numeric.
+#' @param df dataframe
 #' @keywords characters numbers
 #' @export
 #' @examples

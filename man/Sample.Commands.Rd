@@ -2,22 +2,11 @@
 % Please edit documentation in R/extractFacComp.R
 \name{Sample.Commands}
 \alias{Sample.Commands}
-\title{Sample.Commands
-This program shows how to use the main program with two illustrative samples of
-data.  The first sample contains N = 500 cases, k = 12 normally distributed
-continuous variables, and 3 correlated factors.  The sample commands show the
-correlation matrix and the output of the EFA.Comp.Data program, which correctly
-identifies 3 factors.  The second sample contains N = 500 cases, k = 8 non-normally
-distributed ordinal variables, and 2 uncorrelated factors.  The sample commands show
-the Pearson correlation matrix, the Spearman correlation matrix, the difference
-between these matrices, the output of the EFA.Comp.Data program (first using Pearson
-correlations and then using Spearman correlations).  The first run overidentifies
-the number of factors, but the second correctly identifies 2 factors.}
+\title{Sample.Commands}
 \usage{
 Sample.Commands()
 }
 \description{
-Sample.Commands
 This program shows how to use the main program with two illustrative samples of
 data.  The first sample contains N = 500 cases, k = 12 normally distributed
 continuous variables, and 3 correlated factors.  The sample commands show the
@@ -30,7 +19,9 @@ correlations and then using Spearman correlations).  The first run overidentifie
 the number of factors, but the second correctly identifies 2 factors.
 }
 \examples{
+\dontrun{
 ?Sample.Commands
+}
 }
 \references{
 Ruscio, John; Roche, B. (2012). 'Determining the number of factors to retain in an exploratory factor analysis using comparison data of known factorial structure'. Psychological Assessment 24: 282–292.
