@@ -6,10 +6,10 @@
 #' @export getCliffsD
 
 # get cliff's ds
-getCliffsD <- function(col, g){
-  cd <- cliff.delta(col, g)
-  cdRes <- c(cd$estimate, cd$conf.int )
-  names(cdRes) <- c("CliffsD", 'LowCI', 'HiCI')
-  return(cdRes)
+getCliffsD <- function(col, g) {
+    cd <- cliff.delta(col, g)
+    cdRes <- c(cd$estimate, cd$conf.int)
+    names(cdRes) <- c("CliffsD", "LowCI", "HiCI")
+    return(cdRes)
 }
 
