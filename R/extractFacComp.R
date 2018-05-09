@@ -41,8 +41,8 @@ EFA.Comp.Data <- function(Data, F.Max, N.Pop = 10000, N.Samples = 500,
                 (Eigs.Samp - Eigs.Data))/k)
         }
         if (F.CD > 1) 
-            Sig <- (wilcox.test(RMSR.Eigs[, F.CD], RMSR.Eigs[, (F.CD - 
-                1)], "less")$p.value < Alpha)
+            Sig <- (wilcox.test(RMSR.Eigs[, F.CD], RMSR.Eigs[, 
+                (F.CD - 1)], "less")$p.value < Alpha)
         if (Sig) 
             F.CD <- F.CD + 1
     }
