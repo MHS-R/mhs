@@ -7,7 +7,7 @@ library(roxygen2)
 library(formatR)
 
 getwd()
-setwd('C:/Users/victoria.ng/Dropbox/MHSPackage')
+setwd('G:/R&D/Victoria.Ng/MHSPackage2')
 # create the package directory
 # create("MHSPackage")
 
@@ -19,11 +19,12 @@ setwd('C:/Users/victoria.ng/Dropbox/MHSPackage')
 lintr::lint_package()
 
 # put together documentation
-setwd("./MHSPackage")
+
+#setwd("./MHSPackage2")
 # tidy up ugly code
 tidy_dir('./R')
 
-document() #update documentation
+devtools::document() #update documentation
 
 # WORK LOCALLY------------------------------
 # Go back to parent directory to load package LOCALLY.
@@ -49,5 +50,5 @@ library(MHSPackage)
 
 #test
 #test2
-
+#test3
 

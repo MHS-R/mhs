@@ -4,12 +4,14 @@
 \alias{getCliffsD}
 \title{Cliff's d}
 \usage{
-getCliffsD(col, g)
+getCliffsD(col, g, withCI = FALSE)
 }
 \arguments{
 \item{col}{a numeric vector with data values}
 
 \item{g}{numeric; a number specifying the number of digits to round to.}
+
+\item{withCI}{logical; include CIs?}
 }
 \description{
 Wrapper function to call effsize::cliff.delta. Returns only the Cliff's delta estimate and its confidence intervals. For further details, see original function.

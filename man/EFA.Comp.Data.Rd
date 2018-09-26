@@ -4,8 +4,8 @@
 \alias{EFA.Comp.Data}
 \title{EFA.Comp.Data}
 \usage{
-EFA.Comp.Data(Data, F.Max, N.Pop = 10000, N.Samples = 500, Alpha = 0.3,
-  Graph = F, Spearman = F)
+EFA.Comp.Data(Data, F.Max, N.Pop = 10000, N.Samples = 500,
+  Alpha = 0.3, Graph = F, Spearman = F)
 }
 \arguments{
 \item{Data}{N (sample size) x k (number of variables) data matrix}
@@ -29,5 +29,5 @@ EFA.Comp.Data
 ?Sample.Commands
 }
 \references{
-Ruscio, John; Roche, B. (2012). 'Determining the number of factors to retain in an exploratory factor analysis using comparison data of known factorial structure'. Psychological Assessment 24: 282–292.
+Ruscio, John; Roche, B. (2012). 'Determining the number of factors to retain in an exploratory factor analysis using comparison data of known factorial structure'. Psychological Assessment 24: 282?\200?292.
 }

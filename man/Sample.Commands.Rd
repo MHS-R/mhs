@@ -24,5 +24,5 @@ the number of factors, but the second correctly identifies 2 factors.
 }
 }
 \references{
-Ruscio, John; Roche, B. (2012). 'Determining the number of factors to retain in an exploratory factor analysis using comparison data of known factorial structure'. Psychological Assessment 24: 282–292.
+Ruscio, John; Roche, B. (2012). 'Determining the number of factors to retain in an exploratory factor analysis using comparison data of known factorial structure'. Psychological Assessment 24: 282?\200?292.
 }
