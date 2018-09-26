@@ -3,6 +3,7 @@
 #'
 #' @param items numeric; number of items included in EFA
 #' @param factors numeric; number of latent variables to be estimated
+#' @export efaEstimatedParameters
 
 efaEstimatedParameters <- function(items, factors) {
     p <- items

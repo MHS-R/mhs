@@ -5,7 +5,7 @@
 #' @param rowVector vector; a row vector in, say, a data frame of Cases by Variables
 #' @param maxMiss numeric; a number specifying the maximum NAs that are allowed prior to calculation
 #' @param items numeric; number of cases to sample from each strata
-#'
+#' @export mean.miss
 mean.miss <- function(rowVector, maxMiss) {
     # mean.miss(dat$ha, 0)
     

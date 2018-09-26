@@ -1,10 +1,10 @@
 #' Modified Likert bar plot
 #'
 #' This function is a modification of the likert.bar.plot() function in the likert package. Should provide items in the item order provided by dataframe columns. 
-#'
+#' See sample script in 'R&D\_PRIVATE SHARED\Psychometric templates\Sample script for Likert Plots'
+
 #' @param l likert class object
 #' @export likert.bar.plot2
-#' @example  See sample script in G:\R&D\_PRIVATE SHARED\Psychometric templates\Sample script for Likert Plots
 likert.bar.plot2 <- function(l, low.color = "#D8B365", high.color = "#5AB4AC", 
     neutral.color = "grey90", neutral.color.ramp = "white", colors = NULL, 
     plot.percent.low = TRUE, plot.percent.high = TRUE, plot.percent.neutral = TRUE, 

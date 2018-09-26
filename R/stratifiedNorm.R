@@ -10,7 +10,7 @@
 #' @param full.data logical; return the original dataset with a new logical
 #'   variable (named from 'full.data.id') indicating whether the row was selected
 #' @param full.data.id; a string pertaining the variable name used when 'full.data=TRUE'
-#'
+#' @export stratifiedNorm
 
 stratifiedNorm <- function(dat, strata, observations = 0, return.grid = FALSE, 
     full.data = FALSE, full.data.id = "sampled") {
