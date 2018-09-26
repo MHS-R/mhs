@@ -16,3 +16,12 @@
 \description{
 This function calculates a mean if the missingness does not exceed that maximum allowed.
 }
+\examples{
+\dontrun{
+#raw data
+x <- c(1,2,2,3,4,1,2,NA, NA)
+mean.miss(x, 1)
+mean.miss(x, 2)
+mean.miss(x, 2)
+}
+}

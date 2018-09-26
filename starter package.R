@@ -41,7 +41,7 @@ library(MHSPackage)
 # install from github repo to test what's been pushed
 install.packages("devtools")
 library("devtools")
-devtools::install_github(repo='MHS-R/mhs')
+devtools::install_github(repo='MHS-R/mhs', force = TRUE)
 library(MHSPackage)
 #-=====================================
 ?MHSPackage
@@ -53,4 +53,4 @@ library(MHSPackage)
 ?likert.bar.plot2
 ?getCliffsD
 ?EFA.Comp.Data
-?efaEstimatedParameters
+

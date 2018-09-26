@@ -7,7 +7,7 @@
 getCliffsD(col, g, withCI = FALSE)
 }
 \arguments{
-\item{col}{a numeric vector with data values}
+\item{col}{a numeric vector with data values, with complete cases}
 
 \item{g}{factor; a factor for a grouping variable. The first level is the group to which the second level is compared.}
 
@@ -21,6 +21,15 @@ Minimum value is -1, maximum value is 1.
 Values closer to -1 indicate that the first group tends to endorse lower values than the second group.
 Values closer to 1 indicate that the first group tends to endorse higher values than the second group.
 Values closer to 0 indicate that the first group tends to endorse similar values as the second group.
+}
+\examples{
+#' \dontrun{
+#raw data
+group1 <- c(1,1,2,2,2,3,3,3,4,5)
+group2 <- c(1,2,3,4,4,5)
+dat <- data.frame(item1 = c(1,1,2,2,2,3,3,3,4,5, 1,2,3,4,4,5), item2 = c(5,2,3,1,4,2,4,3,2,1,4,5, 1, 1, 1, 1), group = rep(c('g1', 'g2'), c(10, 6)))
+getCliffsD(dat$x, dat$group)
+}
 }
 \references{
 Marco Torchiano http://softeng.polito.it/torchiano/
