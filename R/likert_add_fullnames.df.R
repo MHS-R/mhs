@@ -5,11 +5,11 @@
 #'Example:
 #'db <- add_likert_fullnames(db, c(
 #'  'X7'='Do you use sites like Facebook, Twitter, or GPlus?',
-# 'X8'='Do you participate in online communities organised around
-# your interests?',
+# 'X8'='Do you participate in online communities organised
+# around your interests?',
 #'  'X10'='Do you know of online communities relevant to your discipline or the courses you are taking now?'))
-
 #'
+#' See sample script in G:/R&D/_PRIVATE SHARED/Psychometric templates/Sample script for Likert Plots.R
 #' @param rawDf; a data frame with named columns
 #' @param levels; a numeric vector indicating the number of levels per item
 #' @param fnames; a character vector providing the item content names to be placed in the column names.

@@ -18,6 +18,6 @@ likert.bar.plot2(l, low.color = "#D8B365", high.color = "#5AB4AC",
 \item{l}{likert class object}
 }
 \description{
-This function is a modification of the likert.bar.plot() function in the likert package. Should provide items in the item order provided by dataframe columns. 
-See sample script in 'R&D\_PRIVATE SHARED\Psychometric templates\Sample script for Likert Plots'
+This function is a modification of the likert.bar.plot() function in the likert package. Should provide items in the item order provided by dataframe columns.
+See sample script in G:/R&D/_PRIVATE SHARED/Psychometric templates/Sample script for Likert Plots.R
 }

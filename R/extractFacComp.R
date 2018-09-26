@@ -33,15 +33,16 @@ EFA.Comp.Data <- function(Data, F.Max, N.Pop = 10000, N.Samples = 500,
     while ((F.CD <= F.Max) & (Sig)) {
         Pop <- GenData(Data, N.Factors = F.CD, N = N.Pop, Cor.Type = Cor.Type)
         for (j in 1:N.Samples) {
-            Samp <- Pop[sample(1:N.Pop, size = N, replace = T), ]
+            Samp <- Pop[sample(1:N.Pop, size = N, replace = T), 
+                ]
             cor.Samp <- cor(Samp, method = Cor.Type)
             Eigs.Samp <- eigen(cor.Samp)$values
             RMSR.Eigs[j, F.CD] <- sqrt(sum((Eigs.Samp - Eigs.Data) * 
                 (Eigs.Samp - Eigs.Data))/k)
         }
         if (F.CD > 1) 
-            Sig <- (wilcox.test(RMSR.Eigs[, F.CD], RMSR.Eigs[, (F.CD - 
-                1)], "less")$p.value < Alpha)
+            Sig <- (wilcox.test(RMSR.Eigs[, F.CD], RMSR.Eigs[, 
+                (F.CD - 1)], "less")$p.value < Alpha)
         if (Sig) 
             F.CD <- F.CD + 1
     }
@@ -98,7 +99,8 @@ Sample.Commands <- function() {
     x10 <- s2 + s3 + rnorm(500)
     x11 <- s2 + s3 + rnorm(500)
     x12 <- s2 + s3 + rnorm(500)
-    x <- cbind(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12)
+    x <- cbind(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, 
+        x12)
     print(round(cor(x), 2))
     EFA.Comp.Data(Data = x, F.Max = 5, Graph = T)
     
@@ -123,15 +125,16 @@ Sample.Commands <- function() {
 }
 
 
-GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, Initial.Multiplier = 1, 
-    Cor.Type) {
-    # Steps refer to description in the following article: Ruscio, J., &
-    # Kaczetow, W.  (2008). Simulating multivariate nonnormal data using
-    # an iterative algorithm.  Multivariate Behavioral Research, 43(3),
-    # 355-381.
+GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, 
+    Initial.Multiplier = 1, Cor.Type) {
+    # Steps refer to description in the following article:
+    # Ruscio, J., & Kaczetow, W.  (2008). Simulating
+    # multivariate nonnormal data using an iterative algorithm.
+    # Multivariate Behavioral Research, 43(3), 355-381.
     
-    # Initialize variables and (if applicable) set random number seed
-    # (step 1) -------------------------------------
+    # Initialize variables and (if applicable) set random
+    # number seed (step 1)
+    # -------------------------------------
     
     set.seed(1)
     k <- dim(Supplied.Data)[2]
@@ -147,22 +150,24 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, Initial.Multipl
     for (i in 1:k) Distributions[, i] <- sort(sample(Supplied.Data[, 
         i], size = N, replace = T))
     
-    # Calculate and store a copy of the target correlation matrix (step
-    # 3) -----------------------------------------
+    # Calculate and store a copy of the target correlation
+    # matrix (step 3) -----------------------------------------
     
     Target.Corr <- cor(Supplied.Data, method = Cor.Type)
     Intermediate.Corr <- Target.Corr
     
-    # Generate random normal data for shared and unique components,
-    # initialize factor loadings (steps 5, 6) --------
+    # Generate random normal data for shared and unique
+    # components, initialize factor loadings (steps 5, 6)
+    # --------
     
-    Shared.Comp <- matrix(rnorm(N * N.Factors, 0, 1), nrow = N, ncol = N.Factors)
+    Shared.Comp <- matrix(rnorm(N * N.Factors, 0, 1), nrow = N, 
+        ncol = N.Factors)
     Unique.Comp <- matrix(rnorm(N * k, 0, 1), nrow = N, ncol = k)
     Shared.Load <- matrix(0, nrow = k, ncol = N.Factors)
     Unique.Load <- matrix(0, nrow = k, ncol = 1)
     
-    # Begin loop that ends when specified number of iterations pass
-    # without improvement in RMSR correlation --------
+    # Begin loop that ends when specified number of iterations
+    # pass without improvement in RMSR correlation --------
     
     while (Trials.Without.Improvement < Max.Trials) {
         Iteration <- Iteration + 1
@@ -179,10 +184,10 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, Initial.Multipl
         Shared.Load[Shared.Load < -1] <- -1
         if (Shared.Load[1, 1] < 0) 
             Shared.Load <- Shared.Load * -1
-        for (i in 1:k) if (sum(Shared.Load[i, ] * Shared.Load[i, ]) < 
-            1) 
-            Unique.Load[i, 1] <- (1 - sum(Shared.Load[i, ] * Shared.Load[i, 
-                ])) else Unique.Load[i, 1] <- 0
+        for (i in 1:k) if (sum(Shared.Load[i, ] * Shared.Load[i, 
+            ]) < 1) 
+            Unique.Load[i, 1] <- (1 - sum(Shared.Load[i, ] * 
+                Shared.Load[i, ])) else Unique.Load[i, 1] <- 0
         Unique.Load <- sqrt(Unique.Load)
         for (i in 1:k) Data[, i] <- (Shared.Comp %*% t(Shared.Load))[, 
             i] + Unique.Comp[, i] * Unique.Load[i, 1]
@@ -200,7 +205,8 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, Initial.Multipl
         
         Reproduced.Corr <- cor(Data, method = Cor.Type)
         Residual.Corr <- Target.Corr - Reproduced.Corr
-        RMSR <- sqrt(sum(Residual.Corr[lower.tri(Residual.Corr)] * Residual.Corr[lower.tri(Residual.Corr)])/(0.5 * 
+        RMSR <- sqrt(sum(Residual.Corr[lower.tri(Residual.Corr)] * 
+            Residual.Corr[lower.tri(Residual.Corr)])/(0.5 * 
             (k * k - k)))
         if (RMSR < Best.RMSR) {
             Best.RMSR <- RMSR
@@ -213,15 +219,16 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, Initial.Multipl
             Trials.Without.Improvement <- Trials.Without.Improvement + 
                 1
             Current.Multiplier <- Initial.Multiplier * 0.5^Trials.Without.Improvement
-            Intermediate.Corr <- Best.Corr + Current.Multiplier * Best.Res
+            Intermediate.Corr <- Best.Corr + Current.Multiplier * 
+                Best.Res
         }
     }
     
-    # Construct the data set with the lowest RMSR correlation (step 13)
-    # --------------------------------------------
+    # Construct the data set with the lowest RMSR correlation
+    # (step 13) --------------------------------------------
     
-    Fact.Anal <- Factor.Analysis(Best.Corr, Corr.Matrix = TRUE, N.Factors = N.Factors, 
-        Cor.Type = Cor.Type)
+    Fact.Anal <- Factor.Analysis(Best.Corr, Corr.Matrix = TRUE, 
+        N.Factors = N.Factors, Cor.Type = Cor.Type)
     if (N.Factors == 1) 
         Shared.Load[, 1] <- Fact.Anal$loadings else for (i in 1:N.Factors) Shared.Load[, i] <- Fact.Anal$loadings[, 
         i]
@@ -229,12 +236,13 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, Initial.Multipl
     Shared.Load[Shared.Load < -1] <- -1
     if (Shared.Load[1, 1] < 0) 
         Shared.Load <- Shared.Load * -1
-    for (i in 1:k) if (sum(Shared.Load[i, ] * Shared.Load[i, ]) < 1) 
+    for (i in 1:k) if (sum(Shared.Load[i, ] * Shared.Load[i, 
+        ]) < 1) 
         Unique.Load[i, 1] <- (1 - sum(Shared.Load[i, ] * Shared.Load[i, 
             ])) else Unique.Load[i, 1] <- 0
     Unique.Load <- sqrt(Unique.Load)
-    for (i in 1:k) Data[, i] <- (Shared.Comp %*% t(Shared.Load))[, i] + 
-        Unique.Comp[, i] * Unique.Load[i, 1]
+    for (i in 1:k) Data[, i] <- (Shared.Comp %*% t(Shared.Load))[, 
+        i] + Unique.Comp[, i] * Unique.Load[i, 1]
     Data <- apply(Data, 2, scale)  # standardizes each variable in the matrix
     for (i in 1:k) {
         Data <- Data[sort.list(Data[, i]), ]
@@ -270,13 +278,14 @@ Factor.Analysis <- function(Data, Corr.Matrix = FALSE, Max.Iter = 50,
         L <- sqrt(Eig$values[1:N.Factors])
         for (i in 1:N.Factors) Factor.Loadings[, i] <- Eig$vectors[, 
             i] * L[i]
-        for (i in 1:k) H2[i] <- sum(Factor.Loadings[i, ] * Factor.Loadings[i, 
-            ])
+        for (i in 1:k) H2[i] <- sum(Factor.Loadings[i, ] * 
+            Factor.Loadings[i, ])
         Change <- max(abs(Old.H2 - H2))
         Old.H2 <- H2
         diag(Cor.Matrix) <- H2
     }
     if (Determine) 
         N.Factors <- sum(Eig$values > 1)
-    return(list(loadings = Factor.Loadings[, 1:N.Factors], factors = N.Factors))
+    return(list(loadings = Factor.Loadings[, 1:N.Factors], 
+        factors = N.Factors))
 }

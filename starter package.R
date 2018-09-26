@@ -36,9 +36,6 @@ install("C:/Users/victoria.ng/Dropbox/MHSPackage")
 library(MHSPackage)
  detach('package:MHSPackage', unload=TRUE)
 
-?round2
-
-
 
 # WORK FROM REPO
 # install from github repo to test what's been pushed
@@ -47,8 +44,13 @@ library("devtools")
 devtools::install_github(repo='MHS-R/mhs')
 library(MHSPackage)
 #-=====================================
+?MHSPackage
 
-#test
-#test2
-#test3
-
+?stratifiedNorm
+?round2
+?mean.miss
+?likert_add_fullnames.df
+?likert.bar.plot2
+?getCliffsD
+?EFA.Comp.Data
+?efaEstimatedParameters

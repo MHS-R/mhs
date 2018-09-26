@@ -25,7 +25,8 @@ stratifiedNorm <- function(dat, strata, observations = 0, return.grid = FALSE,
     svars <- dat[, strata]
     factors <- list()
     
-    dat <- cbind(InTeRnAlIdVaRs = as.numeric(rownames(dat)), dat)
+    dat <- cbind(InTeRnAlIdVaRs = as.numeric(rownames(dat)), 
+        dat)
     
     for (i in 1:nstrata) {
         if (class(svars[, i]) != "factor") {
@@ -49,15 +50,17 @@ stratifiedNorm <- function(dat, strata, observations = 0, return.grid = FALSE,
     if (return.grid) 
         return(cbind(remove, Observations = observations))
     
-    ret <- lapply(1:nrow(remove), function(ind, dat, remove, count) {
+    ret <- lapply(1:nrow(remove), function(ind, dat, remove, 
+        count) {
         pick <- matrix(FALSE, nrow(dat), ncol(remove))
         names <- colnames(remove)
-        for (i in 1L:ncol(pick)) pick[, i] <- dat[, names[i]] == remove[ind, 
-            names[i]]
+        for (i in 1L:ncol(pick)) pick[, i] <- dat[, names[i]] == 
+            remove[ind, names[i]]
         pick <- rowSums(pick) == ncol(remove)
         tmpsvars <- dat[pick, ]
         if (nrow(tmpsvars) > count[ind]) {
-            return(tmpsvars[sample(1:nrow(tmpsvars), count[ind]), ])
+            return(tmpsvars[sample(1:nrow(tmpsvars), count[ind]), 
+                ])
         }
         if (nrow(tmpsvars) == count[ind]) {
             message(sprintf("Combination for (%s) is equal to count. Returning all observations.", 

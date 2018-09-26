@@ -9,10 +9,19 @@ getCliffsD(col, g, withCI = FALSE)
 \arguments{
 \item{col}{a numeric vector with data values}
 
-\item{g}{numeric; a number specifying the number of digits to round to.}
+\item{g}{factor; a factor for a grouping variable. The first level is the group to which the second level is compared.}
 
 \item{withCI}{logical; include CIs?}
 }
 \description{
-Wrapper function to call effsize::cliff.delta. Returns only the Cliff's delta estimate and its confidence intervals. For further details, see original function.
+Wrapper function to call effsize::cliff.delta. Returns only the Cliff's delta estimate and its confidence intervals.
+For further details on the original function or to use the original function, see effsize::cliff.delta.
+The magnitude is assessed using the thresholds provided in (Romano 2006), i.e. |d|<0.147 'negligible', |d|<0.33 'small', |d|<0.474 'medium', otherwise 'large'
+Minimum value is -1, maximum value is 1.
+Values closer to -1 indicate that the first group tends to endorse lower values than the second group.
+Values closer to 1 indicate that the first group tends to endorse higher values than the second group.
+Values closer to 0 indicate that the first group tends to endorse similar values as the second group.
+}
+\references{
+Marco Torchiano http://softeng.polito.it/torchiano/
 }

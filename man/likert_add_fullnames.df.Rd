@@ -21,3 +21,6 @@ db <- add_likert_fullnames(db, c(
  'X7'='Do you use sites like Facebook, Twitter, or GPlus?',
  'X10'='Do you know of online communities relevant to your discipline or the courses you are taking now?'))
 }
+\details{
+See sample script in G:/R&D/_PRIVATE SHARED/Psychometric templates/Sample script for Likert Plots.R
+}
