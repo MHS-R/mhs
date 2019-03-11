@@ -23,5 +23,23 @@ variable (named from 'full.data.id') indicating whether the row was selected}
 }
 \description{
 This function creates a stratified random sample, given an arbitrary number of
-factors and levels within those factors. Credits to Matthew Sigal for finding and modifying this code.
+factors and levels within those factors. Credits to Matthew Sigal: https://gist.github.com/mattsigal/c17650d8a9b0f5b018af
+}
+\examples{
+#' \dontrun{
+dat <- data.frame(Gender=sample(c('Male', 'Female'), size = 1500, replace = TRUE),
+               AgeGroup=sample(c('18-39', '40-49', '50+'), size = 1500, replace = TRUE),
+               Relationship=sample(c('Direct', 'Manager', 'Coworker', 'Friend'), size = 1500, replace = TRUE),
+               X=rnorm(n=1500, mean=0, sd=1),
+               Y=rnorm(n=1500, mean=0, sd=1),
+               Z=rnorm(n=1500, mean=0, sd=1))
+
+strata = c('Gender', 'AgeGroup', 'Relationship')
+
+stratifiedNorm(dat, strata, return.grid=TRUE)
+test <- stratifiedNorm(dat, strata, counts = 5, return.grid=FALSE)
+head(test)
+
+stratifiedNorm(dat, strata, counts = 5, full.data=TRUE)
+}
 }

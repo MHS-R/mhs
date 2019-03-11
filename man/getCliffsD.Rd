@@ -25,8 +25,6 @@ Values closer to 0 indicate that the first group tends to endorse similar values
 \examples{
 #' \dontrun{
 #raw data
-group1 <- c(1,1,2,2,2,3,3,3,4,5)
-group2 <- c(1,2,3,4,4,5)
 dat <- data.frame(item1 = c(1,1,2,2,2,3,3,3,4,5, 1,2,3,4,4,5), item2 = c(5,2,3,1,4,2,4,3,2,1,4,5, 1, 1, 1, 1), group = rep(c('g1', 'g2'), c(10, 6)))
 getCliffsD(dat$x, dat$group)
 }

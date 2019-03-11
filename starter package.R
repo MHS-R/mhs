@@ -16,7 +16,7 @@ setwd('G:/R&D/Victoria.Ng/MHSPackage2')
 
 
 # check for code's compliance with style guide
-lintr::lint_package()
+#lintr::lint_package()
 
 # put together documentation
 

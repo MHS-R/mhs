@@ -99,8 +99,7 @@ Sample.Commands <- function() {
     x10 <- s2 + s3 + rnorm(500)
     x11 <- s2 + s3 + rnorm(500)
     x12 <- s2 + s3 + rnorm(500)
-    x <- cbind(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, 
-        x12)
+    x <- cbind(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12)
     print(round(cor(x), 2))
     EFA.Comp.Data(Data = x, F.Max = 5, Graph = T)
     
@@ -127,14 +126,13 @@ Sample.Commands <- function() {
 
 GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5, 
     Initial.Multiplier = 1, Cor.Type) {
-    # Steps refer to description in the following article:
-    # Ruscio, J., & Kaczetow, W.  (2008). Simulating
-    # multivariate nonnormal data using an iterative algorithm.
-    # Multivariate Behavioral Research, 43(3), 355-381.
+    # Steps refer to description in the following article: Ruscio,
+    # J., & Kaczetow, W.  (2008). Simulating multivariate
+    # nonnormal data using an iterative algorithm.  Multivariate
+    # Behavioral Research, 43(3), 355-381.
     
-    # Initialize variables and (if applicable) set random
-    # number seed (step 1)
-    # -------------------------------------
+    # Initialize variables and (if applicable) set random number
+    # seed (step 1) -------------------------------------
     
     set.seed(1)
     k <- dim(Supplied.Data)[2]
@@ -150,15 +148,14 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5,
     for (i in 1:k) Distributions[, i] <- sort(sample(Supplied.Data[, 
         i], size = N, replace = T))
     
-    # Calculate and store a copy of the target correlation
-    # matrix (step 3) -----------------------------------------
+    # Calculate and store a copy of the target correlation matrix
+    # (step 3) -----------------------------------------
     
     Target.Corr <- cor(Supplied.Data, method = Cor.Type)
     Intermediate.Corr <- Target.Corr
     
     # Generate random normal data for shared and unique
-    # components, initialize factor loadings (steps 5, 6)
-    # --------
+    # components, initialize factor loadings (steps 5, 6) --------
     
     Shared.Comp <- matrix(rnorm(N * N.Factors, 0, 1), nrow = N, 
         ncol = N.Factors)
@@ -186,8 +183,8 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5,
             Shared.Load <- Shared.Load * -1
         for (i in 1:k) if (sum(Shared.Load[i, ] * Shared.Load[i, 
             ]) < 1) 
-            Unique.Load[i, 1] <- (1 - sum(Shared.Load[i, ] * 
-                Shared.Load[i, ])) else Unique.Load[i, 1] <- 0
+            Unique.Load[i, 1] <- (1 - sum(Shared.Load[i, ] * Shared.Load[i, 
+                ])) else Unique.Load[i, 1] <- 0
         Unique.Load <- sqrt(Unique.Load)
         for (i in 1:k) Data[, i] <- (Shared.Comp %*% t(Shared.Load))[, 
             i] + Unique.Comp[, i] * Unique.Load[i, 1]
@@ -206,8 +203,8 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5,
         Reproduced.Corr <- cor(Data, method = Cor.Type)
         Residual.Corr <- Target.Corr - Reproduced.Corr
         RMSR <- sqrt(sum(Residual.Corr[lower.tri(Residual.Corr)] * 
-            Residual.Corr[lower.tri(Residual.Corr)])/(0.5 * 
-            (k * k - k)))
+            Residual.Corr[lower.tri(Residual.Corr)])/(0.5 * (k * 
+            k - k)))
         if (RMSR < Best.RMSR) {
             Best.RMSR <- RMSR
             Best.Corr <- Intermediate.Corr
@@ -236,8 +233,8 @@ GenData <- function(Supplied.Data, N.Factors, N, Max.Trials = 5,
     Shared.Load[Shared.Load < -1] <- -1
     if (Shared.Load[1, 1] < 0) 
         Shared.Load <- Shared.Load * -1
-    for (i in 1:k) if (sum(Shared.Load[i, ] * Shared.Load[i, 
-        ]) < 1) 
+    for (i in 1:k) if (sum(Shared.Load[i, ] * Shared.Load[i, ]) < 
+        1) 
         Unique.Load[i, 1] <- (1 - sum(Shared.Load[i, ] * Shared.Load[i, 
             ])) else Unique.Load[i, 1] <- 0
     Unique.Load <- sqrt(Unique.Load)
@@ -278,14 +275,13 @@ Factor.Analysis <- function(Data, Corr.Matrix = FALSE, Max.Iter = 50,
         L <- sqrt(Eig$values[1:N.Factors])
         for (i in 1:N.Factors) Factor.Loadings[, i] <- Eig$vectors[, 
             i] * L[i]
-        for (i in 1:k) H2[i] <- sum(Factor.Loadings[i, ] * 
-            Factor.Loadings[i, ])
+        for (i in 1:k) H2[i] <- sum(Factor.Loadings[i, ] * Factor.Loadings[i, 
+            ])
         Change <- max(abs(Old.H2 - H2))
         Old.H2 <- H2
         diag(Cor.Matrix) <- H2
     }
     if (Determine) 
         N.Factors <- sum(Eig$values > 1)
-    return(list(loadings = Factor.Loadings[, 1:N.Factors], 
-        factors = N.Factors))
+    return(list(loadings = Factor.Loadings[, 1:N.Factors], factors = N.Factors))
 }

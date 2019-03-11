@@ -6,27 +6,27 @@
 #' @param l likert class object
 #' @export likert.bar.plot2
 likert.bar.plot2 <- function(l, low.color = "#D8B365", high.color = "#5AB4AC", 
-    neutral.color = "grey90", neutral.color.ramp = "white", 
-    colors = NULL, plot.percent.low = TRUE, plot.percent.high = TRUE, 
-    plot.percent.neutral = TRUE, plot.percents = FALSE, text.size = 3, 
-    text.color = "black", centered = TRUE, center = (l$nlevels - 
-        1)/2 + 1, include.center = TRUE, ordered = TRUE, wrap = ifelse(is.null(l$grouping), 
-        50, 100), wrap.grouping = 50, legend = "Response", 
-    legend.position = "bottom", panel.arrange = "v", panel.strip.color = "#F0F0F0", 
-    group.order, ...) {
+    neutral.color = "grey90", neutral.color.ramp = "white", colors = NULL, 
+    plot.percent.low = TRUE, plot.percent.high = TRUE, plot.percent.neutral = TRUE, 
+    plot.percents = FALSE, text.size = 3, text.color = "black", 
+    centered = TRUE, center = (l$nlevels - 1)/2 + 1, include.center = TRUE, 
+    ordered = TRUE, wrap = ifelse(is.null(l$grouping), 50, 100), 
+    wrap.grouping = 50, legend = "Response", legend.position = "bottom", 
+    panel.arrange = "v", panel.strip.color = "#F0F0F0", group.order, 
+    ...) {
     if (center < 1.5 | center > (l$nlevels - 0.5) | center%%0.5 != 
         0) {
         stop(paste0("Invalid center. Values can range from 1.5 to ", 
             (l$nlevels - 0.5), " in increments of 0.5"))
     }
     
-    utils::globalVariables(c("value", "Group", "variable", 
-        "low", "Item", "high", "neutral", "x", "y", "pos", 
-        "ddply", "."))
+    # utils::globalVariables(c('value', 'Group', 'variable',
+    # 'low', 'Item', 'high', 'neutral', 'x', 'y', 'pos', 'ddply',
+    # '.'))
     
     label_wrap_mod <- function(value, width = 25) {
-        sapply(strwrap(as.character(value), width = width, 
-            simplify = FALSE), paste, collapse = "\n")
+        sapply(strwrap(as.character(value), width = width, simplify = FALSE), 
+            paste, collapse = "\n")
     }
     
     abs_formatter <- function(x) {
@@ -71,13 +71,11 @@ likert.bar.plot2 <- function(l, low.color = "#D8B365", high.color = "#5AB4AC",
         lsum$Item <- label_wrap_mod(lsum$Item, width = wrap)
         lsum$Item <- factor(lsum$Item, ordered = TRUE)
         l$results$Item <- label_wrap_mod(l$results$Item, width = wrap)
-        # names(l$items) <- label_wrap_mod(names(l$items),
-        # width=wrap)
+        # names(l$items) <- label_wrap_mod(names(l$items), width=wrap)
         lsum$Group <- label_wrap_mod(lsum$Group, width = wrap.grouping)
         
         results <- l$results
-        results <- reshape2::melt(results, id = c("Group", 
-            "Item"))
+        results <- reshape2::melt(results, id = c("Group", "Item"))
         results$variable <- factor(results$variable, ordered = TRUE)
         if (TRUE | is.null(l$items)) {
             results$Item <- factor(as.character(results$Item), 
@@ -115,10 +113,9 @@ likert.bar.plot2 <- function(l, low.color = "#D8B365", high.color = "#5AB4AC",
             
             
             
-            p <- ggplot(results, aes(y = value, x = Group, 
-                group = variable)) + geom_hline(yintercept = 0) + 
-                geom_bar(data = results.low[nrow(results.low):1, 
-                  ], aes(fill = variable), stat = "identity") + 
+            p <- ggplot(results, aes(y = value, x = Group, group = variable)) + 
+                geom_hline(yintercept = 0) + geom_bar(data = results.low[nrow(results.low):1, 
+                ], aes(fill = variable), stat = "identity") + 
                 geom_bar(data = results.high, aes(fill = variable), 
                   stat = "identity")
             names(cols) <- levels(results$variable)
@@ -126,8 +123,7 @@ likert.bar.plot2 <- function(l, low.color = "#D8B365", high.color = "#5AB4AC",
                 values = cols, drop = FALSE)
         } else {
             ymin <- 0
-            p <- ggplot(results, aes(y = value, x = Group, 
-                group = variable))
+            p <- ggplot(results, aes(y = value, x = Group, group = variable))
             p <- p + geom_bar(stat = "identity", aes(fill = variable)) + 
                 scale_fill_manual(legend, values = cols, breaks = levels(results$variable), 
                   labels = levels(results$variable), drop = FALSE)
@@ -139,10 +135,9 @@ likert.bar.plot2 <- function(l, low.color = "#D8B365", high.color = "#5AB4AC",
                 size = text.size, hjust = 1, color = text.color)
         }
         if (plot.percent.high) {
-            p <- p + geom_text(data = lsum, aes(x = Group, 
-                y = 100, label = paste0(round(high), "%"), 
-                group = Item), size = text.size, hjust = -0.2, 
-                color = text.color)
+            p <- p + geom_text(data = lsum, aes(x = Group, y = 100, 
+                label = paste0(round(high), "%"), group = Item), 
+                size = text.size, hjust = -0.2, color = text.color)
         }
         if (plot.percent.neutral & l$nlevels%%2 == 1 & include.center) {
             if (centered) {
@@ -159,12 +154,12 @@ likert.bar.plot2 <- function(l, low.color = "#D8B365", high.color = "#5AB4AC",
         if (FALSE & plot.percents) {
             # TODO: implement for grouping
             warning("plot.percents is not currenlty supported for grouped analysis.")
-            # lpercentpos <- ddply(results[results$value > 0,],
-            # .(Item), transform, pos = cumsum(value) - 0.5*value) p +
+            # lpercentpos <- ddply(results[results$value > 0,], .(Item),
+            # transform, pos = cumsum(value) - 0.5*value) p +
             # geom_text(data=lpercentpos, aes(x=Group, y=pos,
             # label=paste0(round(value), '%'), group=Item),
-            # size=text.size) lpercentneg <- results[results$value <
-            # 0,] if(nrow(lpercentneg) > 0) { lpercentneg <-
+            # size=text.size) lpercentneg <- results[results$value < 0,]
+            # if(nrow(lpercentneg) > 0) { lpercentneg <-
             # lpercentneg[nrow(lpercentneg):1,] lpercentneg$value <-
             # abs(lpercentneg$value) lpercentneg <- ddply(lpercentneg,
             # .(Item), transform, pos = cumsum(value) - 0.5*value)
@@ -210,8 +205,7 @@ likert.bar.plot2 <- function(l, low.color = "#D8B365", high.color = "#5AB4AC",
                 1)])
             results[rows, "value"] <- -1 * results[rows, "value"]
             if (center%%1 == 0) {
-                # Midpoint is a level (i.e. there are an odd number of
-                # levels)
+                # Midpoint is a level (i.e. there are an odd number of levels)
                 rows.mid <- which(results$variable %in% names(l$results)[center + 
                   1])
                 if (include.center) {
@@ -282,13 +276,12 @@ likert.bar.plot2 <- function(l, low.color = "#D8B365", high.color = "#5AB4AC",
         if (plot.percents) {
             center.label <- ""
             if (center%%1 == 0) {
-                # Midpoint is a level (i.e. there are an odd number of
-                # levels)
+                # Midpoint is a level (i.e. there are an odd number of levels)
                 center.label <- names(l$results)[center + 1]
             }
-            lpercentpos <- ddply(results[results$value > 0, 
-                ], .(Item), transform, pos = cumsum(value) - 
-                0.5 * value)
+            lpercentpos <- ddply(results[results$value > 0, ], 
+                .(Item), transform, pos = cumsum(value) - 0.5 * 
+                  value)
             p <- p + geom_text(data = lpercentpos[lpercentpos$variable != 
                 center.label, ], aes(x = Item, y = pos, label = paste0(round(value), 
                 "%")), size = text.size, color = text.color)
@@ -297,19 +290,19 @@ likert.bar.plot2 <- function(l, low.color = "#D8B365", high.color = "#5AB4AC",
                 lpercentneg <- lpercentneg[nrow(lpercentneg):1, 
                   ]
                 lpercentneg$value <- abs(lpercentneg$value)
-                lpercentneg <- ddply(lpercentneg, .(Item), 
-                  transform, pos = cumsum(value) - 0.5 * value)
+                lpercentneg <- ddply(lpercentneg, .(Item), transform, 
+                  pos = cumsum(value) - 0.5 * value)
                 lpercentneg$pos <- lpercentneg$pos * -1
                 p <- p + geom_text(data = lpercentneg[lpercentneg$variable != 
                   center.label, ], aes(x = Item, y = pos, label = paste0(round(abs(value)), 
                   "%")), size = text.size, color = text.color)
             }
-            lpercentneutral <- results[results$variable == 
-                center.label, ]
+            lpercentneutral <- results[results$variable == center.label, 
+                ]
             if (nrow(lpercentneutral) > 0) {
-                p <- p + geom_text(data = lpercentneutral, 
-                  aes(x = Item, y = 0, label = paste0(round(abs(value * 
-                    2)), "%")), size = text.size, color = text.color)
+                p <- p + geom_text(data = lpercentneutral, aes(x = Item, 
+                  y = 0, label = paste0(round(abs(value * 2)), 
+                    "%")), size = text.size, color = text.color)
             }
         }
         p <- p + coord_flip() + ylab("Percentage") + xlab("") + 
