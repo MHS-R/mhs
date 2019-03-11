@@ -37,18 +37,16 @@
 #' @export
 n_factors <- function(df, rotate = "varimax", fm = "minres", n = NULL) {
     
-    # Copy the parallel function from nFactors to correct the use
-    # of mvrnorm
+    # Copy the parallel function from nFactors to correct the use of
+    # mvrnorm
     parallel <- function(subject = 100, var = 10, rep = 100, cent = 0.05, 
-        quantile = cent, model = "components", sd = diag(1, var), 
-        ...) {
+        quantile = cent, model = "components", sd = diag(1, var), ...) {
         r <- subject
         c <- var
         y <- matrix(c(1:r * c), nrow = r, ncol = c)
         evpea <- NULL
         for (k in c(1:rep)) {
-            y <- MASS::mvrnorm(n = r, mu = rep(0, var), Sigma = sd, 
-                empirical = FALSE)
+            y <- MASS::mvrnorm(n = r, mu = rep(0, var), Sigma = sd, empirical = FALSE)
             corY <- cov(y, ...)
             if (model == "components") {
                 diag(corY) <- diag(sd)
@@ -63,13 +61,11 @@ n_factors <- function(df, rotate = "varimax", fm = "minres", n = NULL) {
         }
         mevpea <- sapply(as.data.frame(evpea), mean)
         sevpea <- sapply(as.data.frame(evpea), sd)
-        qevpea <- nFactors::moreStats(evpea, quantile = quantile)[3, 
-            ]
+        qevpea <- nFactors::moreStats(evpea, quantile = quantile)[3, ]
         sqevpea <- sevpea
-        sqevpea <- sapply(as.data.frame(sqevpea), SEcentile, n = rep, 
-            p = cent)
-        result <- list(eigen = data.frame(mevpea, sevpea, qevpea, 
-            sqevpea), subject = r, variables = c, centile = cent)
+        sqevpea <- sapply(as.data.frame(sqevpea), SEcentile, n = rep, p = cent)
+        result <- list(eigen = data.frame(mevpea, sevpea, qevpea, sqevpea), 
+            subject = r, variables = c, centile = cent)
         class(result) <- "parallel"
         return(result)
     }
@@ -90,8 +86,8 @@ n_factors <- function(df, rotate = "varimax", fm = "minres", n = NULL) {
     nS <- nFactors::nScree(x = eigen(cor)$values, aparallel = ap$eigen$qevpea)
     
     # Eigeinvalues data
-    eigenvalues <- nS$Analysis %>% dplyr::select_("Eigenvalues", 
-        Exp.Variance = "Prop", Cum.Variance = "Cumu") %>% mutate_(n.Factors = ~seq_len(nrow(nS$Analysis)))
+    eigenvalues <- nS$Analysis %>% dplyr::select_("Eigenvalues", Exp.Variance = "Prop", 
+        Cum.Variance = "Cumu") %>% mutate_(n.Factors = ~seq_len(nrow(nS$Analysis)))
     
     
     
@@ -99,16 +95,14 @@ n_factors <- function(df, rotate = "varimax", fm = "minres", n = NULL) {
     
     # Processing -------------------
     results <- data.frame(Method = c("Optimal Coordinates", "Acceleration Factor", 
-        "Parallel Analysis", "Eigenvalues (Kaiser Criterion)"), 
-        n_optimal = as.numeric(nS$Components[1, ]))
+        "Parallel Analysis", "Eigenvalues (Kaiser Criterion)"), n_optimal = as.numeric(nS$Components[1, 
+        ]))
     
-    # EGA Method Doesn't really work for now :( ega <-
-    # EGA::EGA(cor, plot.EGA = F, matrix=TRUE, n = n) ega <-
-    # EGA::bootEGA(df, n = 1000)
+    # EGA Method Doesn't really work for now :( ega <- EGA::EGA(cor,
+    # plot.EGA = F, matrix=TRUE, n = n) ega <- EGA::bootEGA(df, n = 1000)
     
     # VSS
-    vss <- psych::VSS(cor, n.obs = n, rotate = rotate, fm = fm, 
-        plot = F)  # fm can be 'pa', 'pc', 'minres', 'mle'
+    vss <- psych::VSS(cor, n.obs = n, rotate = rotate, fm = fm, plot = F)  # fm can be 'pa', 'pc', 'minres', 'mle'
     stats <- vss$vss.stats
     stats$map <- vss$map
     stats$n_factors <- seq_len(nrow(stats))
@@ -126,8 +120,7 @@ n_factors <- function(df, rotate = "varimax", fm = "minres", n = NULL) {
         min <- min(stats$BIC[!is.na(stats$BIC)])
         opt <- stats[stats$BIC == min, ]$n_factors[!is.na(stats[stats$BIC == 
             min, ]$n_factors)]
-        results <- rbind(results, data.frame(Method = c("BIC"), 
-            n_optimal = c(opt)))
+        results <- rbind(results, data.frame(Method = c("BIC"), n_optimal = c(opt)))
     }
     # sabic
     if (length(stats$SABIC[!is.na(stats$SABIC)]) > 0) {
@@ -155,9 +148,8 @@ n_factors <- function(df, rotate = "varimax", fm = "minres", n = NULL) {
     
     eigenvalues <- results %>% group_by_("n_optimal") %>% summarise_(n_method = ~n()) %>% 
         mutate_(n_optimal = ~factor(n_optimal, levels = seq_len(nrow(eigenvalues)))) %>% 
-        complete_("n_optimal", fill = list(n_method = 0)) %>% 
-        arrange_("n_optimal") %>% rename_(n.Factors = "n_optimal", 
-        n.Methods = "n_method") %>% mutate_(n.Factors = ~as.integer(n.Factors)) %>% 
+        complete_("n_optimal", fill = list(n_method = 0)) %>% arrange_("n_optimal") %>% 
+        rename_(n.Factors = "n_optimal", n.Methods = "n_method") %>% mutate_(n.Factors = ~as.integer(n.Factors)) %>% 
         left_join(eigenvalues, by = "n.Factors") %>% select_("-Exp.Variance")
     
     
@@ -171,11 +163,9 @@ n_factors <- function(df, rotate = "varimax", fm = "minres", n = NULL) {
     
     best_n_methods <- list()
     for (i in as.list(best_n)) {
-        methods_list <- results[results$n_optimal %in% as.list(i), 
-            ]
+        methods_list <- results[results$n_optimal %in% as.list(i), ]
         methods_list <- as.character(methods_list$Method)
-        best_n_methods[[paste0("n_", i)]] <- paste(methods_list, 
-            collapse = ", ")
+        best_n_methods[[paste0("n_", i)]] <- paste(methods_list, collapse = ", ")
     }
     
     
@@ -192,9 +182,8 @@ n_factors <- function(df, rotate = "varimax", fm = "minres", n = NULL) {
     }
     
     text <- paste0("The choice of ", best_n, factor_text, "is supported by ", 
-        best_n_df$n.Methods, " (out of ", round(nrow(results)), 
-        "; ", round(best_n_df$n.Methods/nrow(results) * 100, 2), 
-        "%) methods (", best_n_methods, ").")
+        best_n_df$n.Methods, " (out of ", round(nrow(results)), "; ", round(best_n_df$n.Methods/nrow(results) * 
+            100, 2), "%) methods (", best_n_methods, ").")
     
     
     # Plot -------------
@@ -209,13 +198,11 @@ n_factors <- function(df, rotate = "varimax", fm = "minres", n = NULL) {
         geom_line(colour = "#E91E63", size = 1) + geom_hline(yintercept = 1, 
         linetype = "dashed", colour = "#607D8B") + geom_line(aes_string(y = "var"), 
         colour = "#2196F3", size = 1) + scale_y_continuous(sec.axis = sec_axis(trans = ~. * 
-        (max(plot_data$Cum.Variance)/max(plot_data$Eigenvalues)), 
-        name = "Cumulative Variance\n")) + ylab("Eigenvalues\n") + 
-        xlab("\nNumber of Factors") + theme_minimal()
+        (max(plot_data$Cum.Variance)/max(plot_data$Eigenvalues)), name = "Cumulative Variance\n")) + 
+        ylab("Eigenvalues\n") + xlab("\nNumber of Factors") + theme_minimal()
     
     # Output -------------
-    output <- list(text = text, plot = plot, summary = summary, 
-        values = values)
+    output <- list(text = text, plot = plot, summary = summary, values = values)
     
     class(output) <- c("psychobject", "list")
     return(output)

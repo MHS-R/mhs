@@ -68,13 +68,12 @@ stratifiedNorm <- function(dat, strata, observations = 0, return.grid = FALSE,
     ret <- lapply(1:nrow(remove), function(ind, dat, remove, count) {
         pick <- matrix(FALSE, nrow(dat), ncol(remove))
         names <- colnames(remove)
-        for (i in 1L:ncol(pick)) pick[, i] <- dat[, names[i]] == 
-            remove[ind, names[i]]
+        for (i in 1L:ncol(pick)) pick[, i] <- dat[, names[i]] == remove[ind, 
+            names[i]]
         pick <- rowSums(pick) == ncol(remove)
         tmpsvars <- dat[pick, ]
         if (nrow(tmpsvars) > count[ind]) {
-            return(tmpsvars[sample(1:nrow(tmpsvars), count[ind]), 
-                ])
+            return(tmpsvars[sample(1:nrow(tmpsvars), count[ind]), ])
         }
         if (nrow(tmpsvars) == count[ind]) {
             message(sprintf("Combination for (%s) is equal to count. Returning all observations.", 

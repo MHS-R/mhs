@@ -24,12 +24,11 @@ getCliffsD <- function(col, g, withCI = FALSE) {
     if (!is.factor(g)) 
         stop("Argument g must be of factor type")
     cd <- effsize::cliff.delta(col, g)
-    cdRes <- data.frame(cliffD = cd$estimate, lowCI = cd$conf.int[1], 
-        highCI = cd$conf.int[2], size = as.character(cd$magnitude))
+    cdRes <- data.frame(cliffD = cd$estimate, lowCI = cd$conf.int[1], highCI = cd$conf.int[2], 
+        size = as.character(cd$magnitude))
     if (cdRes$size == "negligible") 
         cdRes$size <- "neglig."
-    cdRes$signif <- ifelse(cdRes$lowCI * cdRes$highCI < 0, "", 
-        "*")
+    cdRes$signif <- ifelse(cdRes$lowCI * cdRes$highCI < 0, "", "*")
     
     if (withCI == TRUE) {
         cdRes <- within(cdRes, {
@@ -40,8 +39,7 @@ getCliffsD <- function(col, g, withCI = FALSE) {
     } else {
         cdRes$cliffD <- round(cdRes$cliffD, 2)
         cdRes <- cdRes[, c("cliffD", "size", "signif")]
-        # cdRes$effect <- paste0(cdRes$signif, cdRes$cliffD, ', ',
-        # cdRes$size)
+        # cdRes$effect <- paste0(cdRes$signif, cdRes$cliffD, ', ', cdRes$size)
     }
     return(cdRes)
 }

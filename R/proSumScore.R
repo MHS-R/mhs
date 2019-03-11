@@ -11,8 +11,7 @@ proSumScore <- function(rowVector, maxMiss) {
     missings <- sum(is.na(rowVector))
     numItemsScale <- length(rowVector)
     itemsAnswered <- numItemsScale - missings
-    ifelse(missings > maxMiss, sumM <- NA, sumM <- sum(rowVector, 
-        na.rm = TRUE))
+    ifelse(missings > maxMiss, sumM <- NA, sumM <- sum(rowVector, na.rm = TRUE))
     proSum <- sumM * numItemsScale/itemsAnswered
     return(proSum)
 }

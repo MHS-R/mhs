@@ -18,8 +18,7 @@ mean.miss <- function(rowVector, maxMiss) {
     # mean.miss(dat$ha, 0)
     
     missings <- sum(is.na(rowVector))
-    ifelse(missings > maxMiss, meanM <- NA, meanM <- mean(rowVector, 
-        na.rm = TRUE))
+    ifelse(missings > maxMiss, meanM <- NA, meanM <- mean(rowVector, na.rm = TRUE))
     # scoreM <- round(meanM*items,0)
     return(meanM)
 }

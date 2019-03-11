@@ -7,11 +7,10 @@ library(roxygen2)
 library(formatR)
 
 getwd()
-setwd('G:/R&D/Victoria.Ng/MHSPackage2')
+setwd('G:/R&D/_PRIVATE SHARED/Psychometric templates/MHSPackage')
 # create the package directory
-# create("MHSPackage")
+#create("MHSPackage")
 
-# setwd('C:/Users/vkyn/Dropbox/Equivalence Package')
 # setwd('./MHSPack')
 
 
@@ -28,18 +27,18 @@ devtools::document() #update documentation
 
 # WORK LOCALLY------------------------------
 # Go back to parent directory to load package LOCALLY.
-# setwd("C:/Users/Victoria/Dropbox/Equivalence Package")
-
-# install local equivalencetests
-
-install("C:/Users/victoria.ng/Dropbox/MHSPackage")
+# install local
+install("G:/R&D/_PRIVATE SHARED/Psychometric templates/MHSPackage")
 library(MHSPackage)
  detach('package:MHSPackage', unload=TRUE)
 
 
+# push local to repo via git
+
+
 # WORK FROM REPO
 # install from github repo to test what's been pushed
-install.packages("devtools")
+#install.packages("devtools")
 library("devtools")
 devtools::install_github(repo='MHS-R/mhs', force = TRUE)
 library(MHSPackage)
